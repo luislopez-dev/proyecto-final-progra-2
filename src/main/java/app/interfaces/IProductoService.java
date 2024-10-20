@@ -10,7 +10,7 @@ public interface IProductoService {
 
     void updateProducto(Producto producto);
 
-    void deleteProducto(Producto producto);
+    void deleteProducto(Long codigoProducto);
 
     Producto findProductoByCodigoProducto(long codigoProducto);
 

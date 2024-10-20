@@ -1,28 +1,100 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Lista de Productos</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 </head>
 <body>
-<h1>Productos</h1>
-<table border="1">
-    <thead>
-    <tr>
-        <th>Código</th>
-        <th>Nombre</th>
-        <th>Precio</th>
-        <th>Existencias</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="producto : ${productos}">
-        <td th:text="${producto.getCodigoProducto()}"></td>
-        <td th:text="${producto.getNombre()}"></td>
-        <td th:text="${producto.getPrecio()}"></td>
-        <td th:text="${producto.getExistencias()}"></td>
 
-    </tr>
-    </tbody>
-</table>
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+            <form th:action="@{/productos/search}" method="get" class="d-flex me-3">
+                <input name="nombre" maxlength="60" minlength="1" class="form-control me-2"
+                       placeholder="Buscar Producto" aria-label="Search" />
+                <button class="btn btn-outline-primary" type="submit">Buscar</button>
+            </form>
+
+            <div class="d-flex">
+                <a href="#" class="btn btn-outline-primary me-2">Ventas</a>
+                <a href="#" class="btn btn-outline-primary me-2">Facturas</a>
+                <a href="#" class="btn btn-outline-primary">Reportes</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <div th:if="${message}">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <span th:text="${message}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+
+    <div th:if="${#lists.size(productos) > 0}">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Código</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Existencias</th>
+                <th scope="col">Ver</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Eliminar</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="producto, iterStat : ${productos}">
+                <td th:text="${iterStat.index + 1}"></td>
+                <td th:text="${producto.nombre}"></td>
+                <td th:text="'Q' + ${producto.precio}"></td>
+                <td th:text="${producto.existencias}"></td>
+                <td>
+                    <a th:href="@{/productos/{id}(id=${producto.codigoProducto})}">
+                        <button type="button" class="btn btn-success">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </a>
+                </td>
+                <td>
+                    <a th:href="@{/productos/{id}/edit(id=${producto.codigoProducto})}">
+                        <button type="button" class="btn btn-warning">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                    </a>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" th:data-bs-target="'#ModalDelete-' + ${producto.codigoProducto}">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                    <!-- Modal Delete -->
+                    <div class="modal fade" th:id="'ModalDelete-' + ${producto.codigoProducto}" tabindex="-1" aria-labelledby="Modal-Delete" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar producto</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" th:text="${producto.nombre}"></div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+
+                                    <form method="POST" th:action="@{/productos/{codigoProducto}/delete(codigoProducto=${producto.codigoProducto})}">
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:if="${#lists.size(productos) == 0}">
+        <div class="alert alert-info" role="alert">
+            No se encontraron productos :(
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
-</html>

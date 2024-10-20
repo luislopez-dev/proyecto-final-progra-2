@@ -29,7 +29,10 @@ public class ProductoService implements IProductoService
     }
 
     @Override
-    public void deleteProducto(Producto producto) {
+    public void deleteProducto(Long codigoProducto)
+    {
+        Producto producto = findProductoByCodigoProducto(codigoProducto);
+
         productoRepository.delete(producto);
     }
 
@@ -42,7 +45,7 @@ public class ProductoService implements IProductoService
     @Override
     public List<Producto> findProductosByNombre(String nombreProducto) {
 
-        return productoRepository.findProductosByNombre(nombreProducto).get();
+        return productoRepository.findProductosByNombre(nombreProducto).orElse(List.of());
     }
 
     @Override
