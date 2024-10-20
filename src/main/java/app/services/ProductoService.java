@@ -115,16 +115,15 @@ public class ProductoService implements IProductoService
                 table.addHeaderCell(new Cell().add(new Paragraph("Campo").setBold()));
                 table.addHeaderCell(new Cell().add(new Paragraph("Valor").setBold()));
 
-                // Agregar filas con datos del producto
                 table.addCell(new Cell().add(new Paragraph("Nombre")));
                 table.addCell(new Cell().add(new Paragraph(producto.getNombre())));
+                table.addCell(new Cell().add(new Paragraph("Código")));
+                table.addCell(new Cell().add(new Paragraph(String.valueOf(producto.getCodigoProducto()))));
                 table.addCell(new Cell().add(new Paragraph("Precio")));
-                // Formatear el precio con el símbolo Q
                 table.addCell(new Cell().add(new Paragraph("Q" + String.format("%.2f", producto.getPrecio()))));
                 table.addCell(new Cell().add(new Paragraph("Existencias")));
                 table.addCell(new Cell().add(new Paragraph(String.valueOf(producto.getExistencias()))));
 
-                // Agregar la tabla al documento
                 document.add(table);
             } else {
                 document.add(new Paragraph("Producto no encontrado.").setTextAlignment(TextAlignment.CENTER));
