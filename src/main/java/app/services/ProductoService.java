@@ -1,9 +1,14 @@
 package app.services;
 
+import app.Models.Factura;
 import app.Models.Producto;
+import app.Models.Venta;
+import app.interfaces.IFacturaRepository;
 import app.interfaces.IProductoRepository;
 import app.interfaces.IProductoService;
+import app.interfaces.IVentaRepository;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -22,26 +27,45 @@ import java.util.List;
 public class ProductoService implements IProductoService
 {
     private IProductoRepository productoRepository;
+    private IFacturaRepository facturaRepository;
+    private IVentaRepository ventaRepository;
 
-    public ProductoService(IProductoRepository productoRepository) {
+    public ProductoService(IProductoRepository productoRepository, IFacturaRepository facturaRepository, IVentaRepository ventaRepository) {
         this.productoRepository = productoRepository;
+        this.facturaRepository = facturaRepository;
+        this.ventaRepository = ventaRepository;
     }
 
     @Override
+    @Transactional
     public void saveProducto(Producto producto) {
 
         productoRepository.save(producto);
     }
 
     @Override
+    @Transactional
     public void updateProducto(Producto producto) {
 
         productoRepository.save(producto);
     }
 
     @Override
+    @Transactional
     public void deleteProducto(Long codigoProducto)
     {
+        // eliminar  ventas asociadas
+        List<Venta> ventas = ventaRepository.findByProductoCodigoProducto(codigoProducto);
+        for (Venta venta : ventas) {
+            ventaRepository.delete(venta);
+        }
+
+        // eliminar facturas asociadas
+        List<Factura> facturas = facturaRepository.findByProductoCodigoProducto(codigoProducto);
+        for (Factura factura : facturas) {
+            facturaRepository.delete(factura);
+        }
+
         Producto producto = findProductoByCodigoProducto(codigoProducto);
 
         productoRepository.delete(producto);

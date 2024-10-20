@@ -14,7 +14,7 @@
             </form>
 
             <div class="d-flex align-items-center">
-                <a href="/ventas/create" class="btn btn-outline-primary me-2">Registrar Producto</a>
+                <a href="/productos/create" class="btn btn-outline-primary me-2">Registrar Producto</a>
                 <a href="/ventas" class="btn btn-outline-primary me-2">Ventas</a>
                 <a href="/facturas" class="btn btn-outline-primary me-2">Facturas</a>
 
@@ -83,7 +83,7 @@
                                     <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar producto</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body" th:text="${producto.nombre}"></div>
+                                <div class="modal-body" th:text="'El producto ' + ${producto.nombre} + ' junto con sus respectivos registros de ventas y facturas se eliminarán.'"></div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
 

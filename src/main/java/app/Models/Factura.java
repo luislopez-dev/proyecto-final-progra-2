@@ -15,7 +15,7 @@ public class Factura {
     private Long id;
 
     @ManyToOne
-    @JoinColumn()
+    @JoinColumn(name = "producto_codigo_producto", nullable = false) // Especifica el nombre de la columna de la clave foránea
     private Producto producto;
 
     private String clienteNombre;
