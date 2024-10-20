@@ -2,7 +2,6 @@ package app.controllers;
 
 import app.Enums.MetodoPago;
 import app.Models.Factura;
-import app.Models.Producto;
 import app.Models.Venta;
 import app.interfaces.IProductoService;
 import app.interfaces.IVentaService;
