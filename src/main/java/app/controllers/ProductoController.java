@@ -2,10 +2,14 @@ package app.controllers;
 
 import app.Models.Producto;
 import app.interfaces.IProductoService;
+
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+
 
 @Controller
 @RequestMapping("/productos")
@@ -92,6 +96,15 @@ public class ProductoController {
 
         return "redirect:/productos";
     }
+
+    @GetMapping("{codigoProducto}/reporte")
+    public void generarReportePDF(@PathVariable Long codigoProducto, HttpServletResponse response) {
+
+        productoService.generarReportePDF(codigoProducto, response);
+
+    }
+
+
 
 
 }

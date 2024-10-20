@@ -1,6 +1,7 @@
 package app.interfaces;
 
 import app.Models.Producto;
+import jakarta.servlet.http.HttpServletResponse;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface IProductoService {
     List<Producto> findProductosByNombre(String nombreProducto);
 
     List<Producto> findAllProductos();
+
+    void generarReportePDF(Long codigoProducto, HttpServletResponse response);
 }

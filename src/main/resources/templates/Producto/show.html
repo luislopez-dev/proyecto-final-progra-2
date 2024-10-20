@@ -34,6 +34,9 @@
               <strong>Stock disponible:</strong>
               <span th:text="${producto.existencias}"></span>
             </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <a th:href="@{/productos/{codigoProducto}/reporte(codigoProducto=${producto.codigoProducto})}" class="btn btn-success">Generar Reporte PDF</a>
+            </li>
           </ul>
         </div>
       </div>
