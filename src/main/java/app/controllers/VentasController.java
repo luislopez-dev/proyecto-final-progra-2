@@ -28,7 +28,8 @@ public class VentasController {
             @RequestParam("metodoPago") MetodoPago metodoPago,
             @RequestParam("codigoProducto") Long codigoProducto,
             @RequestParam("clienteNombre") String clienteNombre,
-            @RequestParam("nitCliente") int nitCliente) {
+            @RequestParam("nitCliente") int nitCliente,
+            RedirectAttributes redirectAttributes) {
 
         Venta venta = new Venta();
         venta.setMetodoPago(metodoPago);
@@ -38,6 +39,8 @@ public class VentasController {
         factura.setNitCliente(nitCliente);
 
         ventasService.saveVenta(venta, codigoProducto, factura);
+
+        redirectAttributes.addFlashAttribute("message", "Venta realizada con éxito");
 
         return "redirect:/ventas";
     }

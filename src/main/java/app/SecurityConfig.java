@@ -27,10 +27,13 @@ public class SecurityConfig {
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .permitAll()
-                        .defaultSuccessUrl("/productos", true) // Redirección a /productos después de iniciar sesión
+                        .defaultSuccessUrl("/productos", true)
                 )
-                .logout((logout) -> logout.permitAll());
-
+                .logout((logout) ->
+                        logout
+                        .permitAll()
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout"));
         return http.build();
     }
 
@@ -38,8 +41,8 @@ public class SecurityConfig {
     public UserDetailsService userDetailsService() {
         UserDetails user =
                 User.withDefaultPasswordEncoder()
-                        .username("luis")
-                        .password("1234")
+                        .username("admin")
+                        .password("5297")
                         .roles("USER")
                         .build();
 

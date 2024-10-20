@@ -13,15 +13,21 @@
                 <button class="btn btn-outline-primary" type="submit">Buscar</button>
             </form>
 
-            <div class="d-flex">
-                <a href="/productos" class="btn btn-outline-primary me-2">Inventario</a>
-                <a href="/ventas" class="btn btn-outline-primary me-2">Ver ventas</a>
-                <a href="/ventas/create" class="btn btn-outline-primary me-2">Registrar venta</a>
+            <div class="d-flex align-items-center">
+                <a href="/ventas/create" class="btn btn-outline-primary me-2">Registrar Producto</a>
+                <a href="/ventas" class="btn btn-outline-primary me-2">Ventas</a>
                 <a href="/facturas" class="btn btn-outline-primary me-2">Facturas</a>
+
+                <form th:action="@{/logout}" method="post" class="m-0 p-0">
+                    <button class="btn btn-outline-danger me-2" type="submit">Cerrar sesión</button>
+                </form>
             </div>
+
         </div>
     </nav>
 
+
+    <div class="container">
 
     <div th:if="${message}">
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -31,6 +37,8 @@
     </div>
 
     <div th:if="${#lists.size(productos) > 0}">
+
+        <h2 class="text-center">Inventario</h2>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -94,8 +102,20 @@
 
     <div th:if="${#lists.size(productos) == 0}">
         <div class="alert alert-info" role="alert">
-            No se encontraron productos :(
+            No se encontraron productos en inventario :(
         </div>
     </div>
+
+    </div>
+
+    <footer class="footer fixed-bottom bg-secondary">
+        <div class="container text-center">
+            <span class="text-white">
+                &copy; Distribuidora Centroamericana S.A.
+            </span>
+        </div>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
 </body>

@@ -94,32 +94,24 @@ public class ProductoService implements IProductoService
                     .setTextAlignment(TextAlignment.CENTER);
             document.add(title);
 
-            // Espaciado entre el título y la información
             document.add(new Paragraph("\n"));
 
-            // Obtener la fecha actual
             LocalDate fechaActual = LocalDate.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             String fechaFormateada = fechaActual.format(formatter);
 
-            // Agregar la fecha al documento
-            Paragraph fecha = new Paragraph("Fecha: " + fechaFormateada)
+          /*  Paragraph fecha = new Paragraph("Fecha: " + fechaFormateada)
                     .setTextAlignment(TextAlignment.RIGHT);
-            document.add(fecha);
+            document.add(fecha);*/
 
-            // Espaciado entre la fecha y el contenido
             document.add(new Paragraph("\n"));
 
-            // Obtener el producto
             Producto producto = findProductoByCodigoProducto(codigoProducto);
 
-            // Verificar si el producto existe
             if (producto != null) {
-                // Crear una tabla con 2 columnas
                 Table table = new Table(2);
                 table.setWidth(UnitValue.createPercentValue(100)); // Ancho de la tabla al 100%
 
-                // Agregar encabezados de tabla
                 table.addHeaderCell(new Cell().add(new Paragraph("Campo").setBold()));
                 table.addHeaderCell(new Cell().add(new Paragraph("Valor").setBold()));
 
@@ -138,20 +130,16 @@ public class ProductoService implements IProductoService
                 document.add(new Paragraph("Producto no encontrado.").setTextAlignment(TextAlignment.CENTER));
             }
 
-            // Espaciado entre el contenido y la fecha de generación
             document.add(new Paragraph("\n\n"));
 
-            // Obtener la fecha y hora actual para el pie de página
             LocalDateTime fechaHoraActual = LocalDateTime.now();
             DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
             String fechaHoraFormateada = fechaHoraActual.format(formatterHora);
 
-            // Agregar la fecha y hora al final del documento
-            Paragraph footer = new Paragraph("Reporte generado el: " + fechaHoraFormateada)
+            Paragraph footer = new Paragraph("Reporte generado el " + fechaHoraFormateada)
                     .setTextAlignment(TextAlignment.CENTER);
             document.add(footer);
 
-            // Cerrar el documento
             document.close();
         } catch (Exception e) {
             e.printStackTrace();
