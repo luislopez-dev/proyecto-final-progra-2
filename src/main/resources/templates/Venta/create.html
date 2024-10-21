@@ -32,7 +32,6 @@
                     <div class="form-group mb-3">
                         <label for="codigoProducto" class="form-label">Código del Producto:</label>
                         <select class="form-control" id="codigoProducto" name="codigoProducto" required>
-                            <option value="">Seleccione un código</option>
                             <option th:each="producto : ${productos}"
                                     th:value="${producto.codigoProducto}"
                                     th:text="${producto.codigoProducto}">
