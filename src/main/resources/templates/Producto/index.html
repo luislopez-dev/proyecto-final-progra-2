@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <form th:action="@{/productos/search}" method="get" class="d-flex me-3">
                 <input name="nombre" maxlength="60" minlength="1" class="form-control me-2"
-                       placeholder="Buscar Producto" aria-label="Search" />
+                       placeholder="Buscar Producto" aria-label="Search" autocomplete="off" />
                 <button class="btn btn-outline-primary" type="submit">Buscar</button>
             </form>
 

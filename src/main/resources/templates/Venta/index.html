@@ -46,7 +46,7 @@
                     <td th:text="${venta.producto.nombre}"></td>
                     <td th:text="${venta.metodoPago}"></td>
                     <td th:text="'Q' + ${venta.total}"></td>
-                    <td th:text="${venta.fecha}"></td>
+                    <td th:text="${#temporals.format(venta.fecha, 'dd/MM/yyyy')}"></td>
                 </tr>
                 </tbody>
             </table>

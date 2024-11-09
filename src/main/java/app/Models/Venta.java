@@ -23,7 +23,7 @@ public class Venta {
     private Factura factura;
 
     @ManyToOne
-    @JoinColumn(name = "producto_codigo_producto", nullable = false) // Especifica el nombre de la columna de la clave foránea
+    @JoinColumn(name = "producto_codigo_producto", nullable = false)
     private Producto producto;
 
     private float total;

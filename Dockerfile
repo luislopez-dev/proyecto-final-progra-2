@@ -5,7 +5,7 @@ FROM amazoncorretto:17
 WORKDIR /app
 
 # Copia el archivo JAR construido al contenedor
-COPY target/tu-aplicacion.jar app.jar
+COPY build/libs/app-0.0.1-SNAPSHOT.jar /app/app.jar
 
 # Exponemos el puerto que utiliza la aplicación
 EXPOSE 8080

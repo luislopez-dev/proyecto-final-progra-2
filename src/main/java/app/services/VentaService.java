@@ -53,6 +53,10 @@ public class VentaService implements IVentaService {
 
         venta.setFactura(factura);
 
+        producto.setExistencias(producto.getExistencias() - 1);
+
+        productoRepository.save(producto);
+
         facturaRepository.save(factura);
 
         ventaRepository.save(venta);

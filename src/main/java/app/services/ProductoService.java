@@ -71,6 +71,7 @@ public class ProductoService implements IProductoService
         productoRepository.delete(producto);
     }
 
+    @Transactional
     @Override
     public Producto findProductoByCodigoProducto(long codigoProducto) {
 
@@ -78,20 +79,25 @@ public class ProductoService implements IProductoService
     }
 
     @Override
+    @Transactional
     public List<Producto> findProductosByNombre(String nombreProducto) {
 
         return productoRepository.findProductosByNombre(nombreProducto).orElse(List.of());
     }
 
+    @Transactional
     @Override
     public List<Producto> findAllProductos() {
         return productoRepository.findAll();
     }
 
+    @Transactional
     @Override
     public void generarReportePDF(Long codigoProducto, HttpServletResponse response) {
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "inline; filename=producto.pdf");
+
+        List<Venta> ventas = ventaRepository.findVentasByProducto(codigoProducto);
 
         try {
             PdfWriter writer = new PdfWriter(response.getOutputStream());
@@ -141,6 +147,8 @@ public class ProductoService implements IProductoService
 
                 table.addCell(new Cell().add(new Paragraph("Nombre")));
                 table.addCell(new Cell().add(new Paragraph(producto.getNombre())));
+                table.addCell(new Cell().add(new Paragraph("Unidades vendidas")));
+                table.addCell(new Cell().add(new Paragraph(String.valueOf(ventas.size()))));
                 table.addCell(new Cell().add(new Paragraph("Código")));
                 table.addCell(new Cell().add(new Paragraph(String.valueOf(producto.getCodigoProducto()))));
                 table.addCell(new Cell().add(new Paragraph("Precio")));

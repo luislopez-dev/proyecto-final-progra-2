@@ -53,7 +53,7 @@
                     <td th:text="'Q' + ${factura.impuestos}"></td>
                     <td th:text="'Q' + ${factura.subTotal}"></td>
                     <td th:text="'Q' + ${factura.total}"></td>
-                    <td th:text="${factura.fecha}"></td>
+                    <td th:text="${#temporals.format(factura.fecha, 'dd/MM/yyyy')}"></td>
                 </tr>
                 </tbody>
             </table>
@@ -62,7 +62,7 @@
 
     <div th:if="${#lists.size(facturas) == 0}">
         <div class="alert alert-info" role="alert">
-            No hay facturas registgradas. Realice una venta.
+            No hay facturas registradas. Realice una venta.
         </div>
     </div>
 
